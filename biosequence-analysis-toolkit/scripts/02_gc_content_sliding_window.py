@@ -1,6 +1,4 @@
 """
-02_gc_content_sliding_window.py
-
 Educational bioinformatics demo for:
 - Reading DNA FASTA files
 - Calculating GC-content profiles
@@ -21,12 +19,6 @@ import numpy as np
 def read_single_fasta(file_path: str | Path) -> Tuple[str, str]:
     """
     Read the first sequence from a FASTA file.
-
-    Args:
-        file_path: Path to FASTA file.
-
-    Returns:
-        Tuple of sequence and sequence name.
     """
     sequence_parts = []
     name = "unnamed_sequence"
@@ -54,12 +46,6 @@ def read_single_fasta(file_path: str | Path) -> Tuple[str, str]:
 def clean_dna_sequence(sequence: str) -> str:
     """
     Keep only A, T, G, and C.
-
-    Args:
-        sequence: Raw DNA sequence.
-
-    Returns:
-        Cleaned DNA sequence.
     """
     valid_bases = {"A", "T", "G", "C"}
     return "".join(base for base in sequence.upper().replace("U", "T") if base in valid_bases)
@@ -68,15 +54,6 @@ def clean_dna_sequence(sequence: str) -> str:
 def triangular_weights(window_size: int) -> np.ndarray:
     """
     Create triangular weights for weighted moving average.
-
-    Example for window_size=9:
-    [1, 2, 3, 4, 5, 4, 3, 2, 1]
-
-    Args:
-        window_size: Odd window size.
-
-    Returns:
-        Array of triangular weights.
     """
     if window_size % 2 == 0:
         raise ValueError("window_size must be odd for triangular weighting.")
@@ -91,13 +68,6 @@ def triangular_weights(window_size: int) -> np.ndarray:
 def gc_content_index(sequence: str, window_size: int) -> Tuple[np.ndarray, np.ndarray]:
     """
     Calculate weighted GC-content profile.
-
-    Args:
-        sequence: DNA sequence.
-        window_size: Odd sliding-window size.
-
-    Returns:
-        Positions and weighted GC-content values.
     """
     sequence = clean_dna_sequence(sequence)
 
@@ -166,12 +136,6 @@ def plot_gc_content(
 def run_demo(window_size: int = 21) -> Tuple[np.ndarray, np.ndarray, int, str]:
     """
     Run built-in demo sequence.
-
-    Args:
-        window_size: Odd window size.
-
-    Returns:
-        x data, y data, sequence length, sequence name.
     """
     sequence_name = "demo_dna_sequence"
     sequence = (
