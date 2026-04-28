@@ -24,12 +24,6 @@ STOP_CODONS = {"TAA", "TAG", "TGA"}
 def read_fasta_records(file_path: str | Path) -> Dict[str, str]:
     """
     Read sequences from a FASTA file.
-
-    Args:
-        file_path: Path to FASTA file.
-
-    Returns:
-        Dictionary mapping record names to DNA sequences.
     """
     records: Dict[str, List[str]] = {}
     current_name: str | None = None
@@ -58,12 +52,6 @@ def read_fasta_records(file_path: str | Path) -> Dict[str, str]:
 def clean_dna_sequence(sequence: str) -> str:
     """
     Keep only standard DNA bases.
-
-    Args:
-        sequence: Raw DNA sequence.
-
-    Returns:
-        Cleaned DNA sequence.
     """
     valid_bases = {"A", "T", "G", "C"}
     return "".join(base for base in sequence.upper().replace("U", "T") if base in valid_bases)
@@ -105,12 +93,6 @@ def find_orfs(sequence: str, frame: int) -> List[str]:
 def find_orfs_all_frames(sequence: str) -> Dict[int, List[str]]:
     """
     Find ORFs in three forward reading frames.
-
-    Args:
-        sequence: DNA sequence.
-
-    Returns:
-        Dictionary mapping frame number to ORF list.
     """
     return {
         frame: find_orfs(sequence, frame)
@@ -121,12 +103,6 @@ def find_orfs_all_frames(sequence: str) -> Dict[int, List[str]]:
 def translate_orfs(orfs: List[str]) -> List[str]:
     """
     Translate DNA ORFs into amino-acid sequences.
-
-    Args:
-        orfs: List of DNA ORF sequences.
-
-    Returns:
-        List of translated protein sequences.
     """
     proteins: List[str] = []
 
@@ -140,13 +116,6 @@ def translate_orfs(orfs: List[str]) -> List[str]:
 def analyze_fasta_file(file_path: str | Path, min_protein_length: int = 30) -> List[Dict[str, object]]:
     """
     Run ORF detection and translation for all records in a FASTA file.
-
-    Args:
-        file_path: Input FASTA file.
-        min_protein_length: Minimum amino-acid length to keep.
-
-    Returns:
-        List of ORF/protein records.
     """
     records = read_fasta_records(file_path)
     results: List[Dict[str, object]] = []
@@ -177,10 +146,6 @@ def analyze_fasta_file(file_path: str | Path, min_protein_length: int = 30) -> L
 def write_translation_results(results: List[Dict[str, object]], output_file: str | Path) -> None:
     """
     Write translated ORF results to TSV.
-
-    Args:
-        results: ORF translation results.
-        output_file: Output TSV path.
     """
     output_file = Path(output_file)
     output_file.parent.mkdir(parents=True, exist_ok=True)
@@ -201,9 +166,6 @@ def write_translation_results(results: List[Dict[str, object]], output_file: str
 def run_demo() -> List[Dict[str, object]]:
     """
     Run a small built-in demo without external files.
-
-    Returns:
-        Demo ORF translation results.
     """
     demo_sequence = (
         "AAACCCATGGCTGCTGCTAAATTTGGGATGAAACCCGGGTTTAAACCC"
