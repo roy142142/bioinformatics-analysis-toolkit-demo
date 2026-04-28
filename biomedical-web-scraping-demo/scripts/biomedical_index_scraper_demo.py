@@ -40,7 +40,6 @@ class ScraperConfig:
     index_url_pattern: str = "https://example.org/index/{suffix}.html"
 
     # Example XPath selector.
-    # Users should update this selector based on the target page structure.
     item_xpath: str = "//a/text()"
     link_xpath: str = "//a/@href"
 
@@ -109,14 +108,6 @@ def extract_items_from_html(
 ) -> List[dict]:
     """
     Extract item names and links from an HTML page.
-
-    Args:
-        html_text: HTML content.
-        source_url: URL of the source page.
-        config: Scraper configuration.
-
-    Returns:
-        List of extracted records.
     """
     tree = html.fromstring(html_text)
 
@@ -151,7 +142,6 @@ def extract_items_from_html(
 def save_records_to_csv(records: List[dict], output_file: str | Path) -> None:
     """
     Save records to CSV.
-
     """
     output_file = Path(output_file)
     output_file.parent.mkdir(parents=True, exist_ok=True)
