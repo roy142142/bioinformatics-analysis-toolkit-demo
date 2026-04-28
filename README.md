@@ -12,8 +12,6 @@ The first module currently included is a DNA and protein sequence analysis toolk
 bioinformatics-analysis-toolkit-demo/
 │
 ├── README.md
-├── requirements.txt
-├── .gitignore
 │
 ├── biosequence-analysis-toolkit/
 │   ├── README.md
@@ -23,11 +21,9 @@ bioinformatics-analysis-toolkit-demo/
 │   │   ├── 03_protein_properties.py
 │   │   └── 04_hydropathy_plot.py
 │   │
-│   ├── data/
-│   │   └── README.md
 │   │
 │   └── figures/
-│       └── .gitkeep
+│      
 │
 └── future-modules/
-    └── README.md
+    
