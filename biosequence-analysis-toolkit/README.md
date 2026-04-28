@@ -42,8 +42,6 @@ biosequence-analysis-toolkit/
 │   ├── 04_hydropathy_profile.py
 │   └── 05_sequence_logo_alignment.py
 │
-├── data/
-│   └── README.md
 │
 └── figures/
-    └── .gitkeep
+
