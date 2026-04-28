@@ -29,12 +29,6 @@ STOP_CODONS = {"TAA", "TAG", "TGA"}
 def read_fasta_records(file_path: str | Path) -> Dict[str, str]:
     """
     Read DNA FASTA records.
-
-    Args:
-        file_path: Path to FASTA file.
-
-    Returns:
-        Dictionary mapping record names to DNA sequences.
     """
     records: Dict[str, List[str]] = {}
     current_name: str | None = None
@@ -63,12 +57,6 @@ def read_fasta_records(file_path: str | Path) -> Dict[str, str]:
 def clean_dna_sequence(sequence: str) -> str:
     """
     Keep only A, T, G, and C.
-
-    Args:
-        sequence: Raw DNA sequence.
-
-    Returns:
-        Cleaned DNA sequence.
     """
     valid_bases = {"A", "T", "G", "C"}
     return "".join(base for base in sequence.upper().replace("U", "T") if base in valid_bases)
@@ -107,12 +95,6 @@ def find_orfs(sequence: str, frame: int) -> List[str]:
 def translate_sequence(dna_sequence: str) -> str:
     """
     Translate DNA sequence into protein sequence.
-
-    Args:
-        dna_sequence: DNA sequence.
-
-    Returns:
-        Protein sequence without terminal stop symbol.
     """
     return str(Seq(dna_sequence).translate(to_stop=True))
 
@@ -123,13 +105,6 @@ def extract_proteins_from_fasta(
 ) -> List[Dict[str, object]]:
     """
     Extract translated proteins from all ORFs in all forward frames.
-
-    Args:
-        file_path: Input DNA FASTA file.
-        min_protein_length: Minimum protein length.
-
-    Returns:
-        List of protein records.
     """
     records = read_fasta_records(file_path)
     proteins: List[Dict[str, object]] = []
@@ -159,15 +134,6 @@ def extract_proteins_from_fasta(
 def calculate_manual_molecular_weight(protein_sequence: str) -> float:
     """
     Estimate protein molecular weight using residue masses and water loss.
-
-    This follows the original project logic:
-    total amino-acid mass - 18 * (number of peptide bonds)
-
-    Args:
-        protein_sequence: Amino-acid sequence.
-
-    Returns:
-        Estimated molecular weight in Da.
     """
     residue_masses = {
         "A": 89, "V": 117, "L": 131, "I": 131, "P": 115,
@@ -193,13 +159,6 @@ def calculate_protein_properties(
 ) -> Dict[str, object]:
     """
     Calculate molecular weight, pI and charge.
-
-    Args:
-        protein_record: Protein record.
-        ph: pH value for charge estimation.
-
-    Returns:
-        Protein property dictionary.
     """
     sequence = str(protein_record["protein_sequence"]).replace("*", "")
 
@@ -223,10 +182,6 @@ def calculate_protein_properties(
 def write_properties_table(results: List[Dict[str, object]], output_file: str | Path) -> None:
     """
     Save protein properties to CSV.
-
-    Args:
-        results: Protein property records.
-        output_file: Output CSV path.
     """
     output_file = Path(output_file)
     output_file.parent.mkdir(parents=True, exist_ok=True)
@@ -246,10 +201,6 @@ def plot_electrophoresis_style(
 ) -> None:
     """
     Plot molecular weight against isoelectric point.
-
-    Args:
-        results: Protein property records.
-        output_file: Output PNG path.
     """
     output_file = Path(output_file)
     output_file.parent.mkdir(parents=True, exist_ok=True)
@@ -274,11 +225,6 @@ def plot_charge_by_isoelectric_point(
 ) -> None:
     """
     Plot charge at selected pH against isoelectric point.
-
-    Args:
-        results: Protein property records.
-        ph: pH used for charge estimation.
-        output_file: Output PNG path.
     """
     output_file = Path(output_file)
     output_file.parent.mkdir(parents=True, exist_ok=True)
@@ -299,12 +245,6 @@ def plot_charge_by_isoelectric_point(
 def run_demo(ph: float = 7.0) -> List[Dict[str, object]]:
     """
     Run demo using a few protein sequences.
-
-    Args:
-        ph: pH for charge estimation.
-
-    Returns:
-        Protein property records.
     """
     demo_proteins = [
         {
